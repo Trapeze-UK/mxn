@@ -290,6 +290,10 @@ Mapstraction: {
 
 	renderKml: function(kml) {
 		// TODO: Add provider code
+	},
+
+	closeStreetView: function() {
+		// TODO: Add provider code
 	}
 },
 

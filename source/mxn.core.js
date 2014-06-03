@@ -380,7 +380,14 @@ mxn.addProxyMethods(Mapstraction, [
 	 * @name mxn.Mapstraction#removeAllKmls
 	 * @function
 	 */
-	'removeAllKmls'
+	'removeAllKmls',
+
+	/**
+	 * Close Street View
+	 * @name mxn.Mapstraction#closeStreetView
+	 * @function
+	 */
+	'closeStreetView'
 ]);
 
 /**

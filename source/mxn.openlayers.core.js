@@ -604,6 +604,10 @@ mxn.register('openlayers', {
 
 		renderKml: function(kml) {
 			throw new Error('Mapstraction.renderKml is not currently supported by provider ' + this.api);
+		},
+
+		closeStreetView: function() {
+			throw new Error('Mapstraction.closeStreetView is not currently supported by provider ' + this.api);
 		}
 	},
 

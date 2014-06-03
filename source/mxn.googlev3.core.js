@@ -17,7 +17,8 @@ Mapstraction: {
 			navigationControl: false,
 			navigationControlOptions: null,
 			scrollwheel: false,
-			disableDoubleClickZoom: true
+			disableDoubleClickZoom: true,
+			streetViewControl: true
 		};
 
 		// Background color can only be set at construction
@@ -509,6 +510,11 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 
 	renderKml: function(kml) {
 		this.parser.parseKmlString(kml);
+	},
+
+	closeStreetView: function() {
+		var map = this.maps[this.api];
+		map.getStreetView().setVisible(false);
 	}
 },
 

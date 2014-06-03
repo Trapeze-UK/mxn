@@ -274,6 +274,10 @@ Mapstraction: {
 
 	renderKml: function(kml) {
 		throw 'Not implemented';
+	},
+
+	closeStreetView: function() {
+		throw 'Not implemented';
 	}
 },
 

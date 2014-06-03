@@ -365,7 +365,14 @@ mxn.addProxyMethods(Mapstraction, [
 	 * @function
 	 * @param {tile_url} url of the tile layer that was created.
 	 */
-	'toggleTileLayer'
+	'toggleTileLayer',
+
+	/**
+	 * Close Street View
+	 * @name mxn.Mapstraction#closeStreetView
+	 * @function
+	 */
+	'closeStreetView'
 ]);
 
 /**

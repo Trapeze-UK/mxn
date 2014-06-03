@@ -282,6 +282,10 @@ Mapstraction: {
 		var map = this.maps[this.api];
 
 		// TODO: Add provider code	
+	},
+
+	closeStreetView: function() {
+		// TODO: Add provider code
 	}
 },
 

@@ -421,6 +421,10 @@ Mapstraction: {
 			});
 			locDisp.innerHTML = '0.0000 / 0.0000';
 		}
+	},
+
+	closeStreetView: function() {
+		throw new Error('Mapstraction.closeStreetView is not currently supported by provider ' + this.api);
 	}
 },
 

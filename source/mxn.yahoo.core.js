@@ -266,8 +266,11 @@ Mapstraction: {
 	
 	mousePosition: function(element) {
 		throw 'Not implemented';
+	},
+
+	closeStreetView: function() {
+		throw 'Not implemented';
 	}
-	
 },
 
 LatLonPoint: {

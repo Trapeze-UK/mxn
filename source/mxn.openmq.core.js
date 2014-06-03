@@ -399,6 +399,12 @@ Mapstraction: {
 				locDisp.innerHTML = coords.lat.toFixed(4) + '/' + coords.lng.toFixed(4);
 			};
 		}
+	},
+
+	closeStreetView: function() {
+		this._fireQueuedEvents();
+
+		throw new Error('Mapstraction.closeStreetView is not currently supported by provider ' + this.api);
 	}
 },
 

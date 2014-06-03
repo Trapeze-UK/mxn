@@ -363,6 +363,10 @@ mxn.register('esri', {
 			}
 		},
 
+		closeStreetView: function() {
+			throw new Error('Mapstraction.closeStreetView is not currently supported by provider ' + this.api);
+		},
+
 		openBubble: function(point, content) {
 			var map = this.maps[this.api];
 			map.showInfoWindow(marker);

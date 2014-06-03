@@ -117,6 +117,17 @@ Mapstraction: {
 			google.maps.event.removeListener( loadListener );
 		});			
 		
+		if (!geoXML3) {
+			throw new Error('No KML parser found. Did you attached geoxml3?');
+		}
+
+		var kmlParserConfiguration = {
+			map: map,
+			zoom: false,
+			suppressInfoWindows: true
+		};
+
+		this.parser = new geoXML3.parser(kmlParserConfiguration);
 		this.maps[api] = map;
 		this.loaded[api] = true;
 	},
@@ -500,6 +511,20 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 			});
 			locDisp.innerHTML = '0.0000 / 0.0000';
 		}
+	},
+
+	removeAllKmls: function() {
+		var parser = this.parser;
+
+		parser.docs.forEach(function (doc) {
+			parser.hideDocument(doc);
+		});
+
+		parser.docs.splice(0, parser.docs.length);
+	},
+
+	renderKml: function(kml) {
+		this.parser.parseKmlString(kml);
 	}
 },
 

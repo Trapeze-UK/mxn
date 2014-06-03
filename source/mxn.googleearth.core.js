@@ -282,6 +282,14 @@ Mapstraction: {
 		var map = this.maps[this.api];
 
 		// TODO: Add provider code	
+	},
+
+	removeAllKmls: function() {
+		// TODO: Add provider code
+	},
+
+	renderKml: function(kml) {
+		// TODO: Add provider code
 	}
 },
 

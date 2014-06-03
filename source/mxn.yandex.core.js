@@ -434,6 +434,14 @@ Mapstraction: {
 			});
 			locDisp.innerHTML = '0.0000 / 0.0000';
 		}
+	},
+
+	removeAllKmls: function() {
+		throw new Error('Mapstraction.removeAllKmls is not currently supported by provider ' + this.api);
+	},
+
+	renderKml: function(kml) {
+		throw new Error('Mapstraction.renderKml is not currently supported by provider ' + this.api);
 	}
 },
 

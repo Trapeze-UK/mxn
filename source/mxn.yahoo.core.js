@@ -266,8 +266,15 @@ Mapstraction: {
 	
 	mousePosition: function(element) {
 		throw 'Not implemented';
+	},
+
+	removeAllKmls: function() {
+		throw 'Not implemented';
+	},
+
+	renderKml: function(kml) {
+		throw 'Not implemented';
 	}
-	
 },
 
 LatLonPoint: {

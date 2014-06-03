@@ -365,7 +365,22 @@ mxn.addProxyMethods(Mapstraction, [
 	 * @function
 	 * @param {tile_url} url of the tile layer that was created.
 	 */
-	'toggleTileLayer'
+	'toggleTileLayer',
+
+	/**
+	 * Render KML stored in string
+	 * @name mxn.Mapstraction#renderKml
+	 * @function
+	 * @param {string} kml KML to render (may be null)
+	 */
+	'renderKml',
+
+	/**
+	 * Remove all rendered KMLs
+	 * @name mxn.Mapstraction#removeAllKmls
+	 * @function
+	 */
+	'removeAllKmls'
 ]);
 
 /**

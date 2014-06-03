@@ -353,6 +353,14 @@ Mapstraction: {
 		}
 	},
 
+	removeAllKmls: function() {
+		throw new Error('Mapstraction.removeAllKmls is not currently supported by provider ' + this.api);
+	},
+
+	renderKml: function(kml) {
+		throw new Error('Mapstraction.renderKml is not currently supported by provider ' + this.api);
+	},
+
 	openBubble: function(point, content) {
 		var map = this.maps[this.api];
 		var newPoint = point.toProprietary(this.api);

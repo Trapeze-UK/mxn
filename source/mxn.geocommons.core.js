@@ -231,6 +231,15 @@ mxn.register('geocommons', {
 
 				// TODO: Add provider code
 		},
+
+		removeAllKmls: function() {
+			// TODO: Add provider code
+		},
+
+		renderKml: function(kml) {
+			// TODO: Add provider code
+		},
+
 		addMarker: function(marker, old) {
 			var map = this.maps[this.api];
 			var pin = marker.toProprietary(this.api);

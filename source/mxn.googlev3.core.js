@@ -236,7 +236,7 @@ Mapstraction: {
 		var myOptions = {
 			panControl: true,
 			zoomControl: true,
-			zoomControlOptions: {style:google.maps.ZoomControlStyle.LARGE}
+			zoomControlOptions: {style:google.maps.ZoomControlStyle.DEFAULT}
 		};
 		map.setOptions(myOptions);
 		this.addControlsArgs.pan = true;

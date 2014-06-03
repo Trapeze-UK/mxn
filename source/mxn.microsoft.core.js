@@ -381,6 +381,18 @@ Mapstraction: {
 			});
 			locDisp.innerHTML = "0.0000 / 0.0000";
 		}
+	},
+
+	removeAllKmls: function() {
+		this._fireQueuedEvents();
+
+		throw new Error('Mapstraction.removeAllKmls is not currently supported by provider ' + this.api);
+	},
+
+	renderKml: function(kml) {
+		this._fireQueuedEvents();
+
+		throw new Error('Mapstraction.renderKml is not currently supported by provider ' + this.api);
 	}
 },
 

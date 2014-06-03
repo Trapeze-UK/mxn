@@ -399,8 +399,19 @@ Mapstraction: {
 				locDisp.innerHTML = coords.lat.toFixed(4) + '/' + coords.lng.toFixed(4);
 			};
 		}
+	},
+
+	removeAllKmls: function() {
+		this._fireQueuedEvents();
+
+		throw new Error('Mapstraction.removeAllKmls is not currently supported by provider ' + this.api);
+	},
+
+	renderKml: function(kml) {
+		this._fireQueuedEvents();
+
+		throw new Error('Mapstraction.renderKml is not currently supported by provider ' + this.api);
 	}
-	
 },
 
 LatLonPoint: {

@@ -225,6 +225,14 @@ mxn.addProxyMethods(Mapstraction, [
 	'addOverlay', 
 	
 	/**
+	 * Adds an overlay DOM element to the map
+	 * @name mxn.Mapstraction#addOverlayElement
+	 * @function
+	 * @param {mxn.OverlayElement} element
+	 */
+	'addOverlayElement',
+
+	/**
 	 * Adds a small map panning control and zoom buttons to the map
 	 * @name mxn.Mapstraction#addSmallControls
 	 * @function
@@ -635,6 +643,18 @@ Mapstraction.prototype.addMarkerWithData = function(marker, data) {
 Mapstraction.prototype.addPolylineWithData = function(polyline, data) {
 	polyline.addData(data);
 	this.addPolyline(polyline);
+};
+
+/**
+	 * Adds an overlay DOM element to the map
+	 * @name mxn.Mapstraction#addOverlayElement
+	 * @function
+	 * @param {mxn.OverlayElement} element
+	 */
+Mapstraction.prototype.addOverlayElement = function(overlay) {
+	overlay.api = this.api;
+	overlay.map = this.maps[this.api];
+	this.invoker.go('addOverlayElement', arguments);
 };
 
 /**
@@ -2073,5 +2093,56 @@ Radius.prototype.getPolyline = function(radius, color) {
 	return line;
 };
 
+
+////////////////////
+// OverlayElement //
+////////////////////
+
+/**
+ * Creates a Mapstraction OverlayElement. It is usefull to create DOM elements which position relates to
+ * specific latitude and longitude
+ * @name mxn.OverlayElement
+ * @constructor
+ * @param {Element} DOM element that will be placed on map
+ * @exports OverlayElement as mxn.OverlayElement
+ */
+var OverlayElement = mxn.OverlayElement = function(element) {
+	this.api = null;
+	this.invoker = new mxn.Invoker(this, 'OverlayElement', function(){ return this.api; });
+	this.element = element;
+};
+
+mxn.addProxyMethods(OverlayElement, [
+	/**
+	 * Shows overlay element on map
+	 * @name mxn.Mapstraction#show
+	 * @function
+	 * @param {mxn.LatLonPoint} point Place at which element's top left corner should be drawn
+	 */
+	'show',
+
+	/**
+	 * Hides overlay element
+	 * @name mxn.Mapstraction#hide
+	 * @function
+	 */
+	'hide',
+
+	/**
+	 * Destroys overlay element. All tasks which are required to remove element will be done here
+	 * @name mxn.Mapstraction#destroy
+	 * @function
+	 */
+	'destroy',
+
+	/**
+	 * Converts the current OverlayElement to a proprietary one for the API specified by <code>api</code>.
+	 * @name mxn.OverlayElement#toProprietary
+	 * @function
+	 * @param {string} api The API ID of the proprietary overlay element.
+	 * @returns A proprietary overlay elemet.
+	 */
+	'toProprietary'
+]);
 
 })();

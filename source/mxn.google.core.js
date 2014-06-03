@@ -347,6 +347,10 @@ Mapstraction: {
 		map.addOverlay(geoXML);
 	},
 
+	addOverlayElement: function(overlay) {
+		throw new Error('Mapstraction.addOverlayElement is not currently supported by provider ' + this.api);
+	},
+
 	addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom, map_type, subdomains) {
 		var copyright = new GCopyright(1, new GLatLngBounds(new GLatLng(-90,-180), new GLatLng(90,180)), 0, label);
 		var copyrightCollection = new GCopyrightCollection(attribution);

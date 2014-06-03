@@ -74,11 +74,17 @@ Mapstraction: {
 		});
 		
 		// deal with click
-		google.maps.event.addListener(map, 'click', function(location){
-			me.click.fire({'location': 
-				new mxn.LatLonPoint(location.latLng.lat(),location.latLng.lng())
-			});
-		});
+		function clickListenerFor(type){
+			return function(event) {
+				me[type].fire({
+					'location': new mxn.LatLonPoint(event.latLng.lat(),event.latLng.lng()),
+					'position': {x: event.pixel.x, y: event.pixel.y}
+				});
+			};
+		}
+
+		google.maps.event.addListener(map, 'click', clickListenerFor('click'));
+		google.maps.event.addListener(map, 'rightclick', clickListenerFor('rightclick'));
 
 		// deal with zoom change
 		google.maps.event.addListener(map, 'zoom_changed', function(){
@@ -617,6 +623,10 @@ Marker: {
 			marker.mapstraction_marker.click.fire();
 		});
 		
+		google.maps.event.addListener(marker, 'rightclick', function() {
+			marker.mapstraction_marker.rightclick.fire();
+		});
+
 		return marker;
 	},
 

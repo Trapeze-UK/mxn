@@ -139,6 +139,13 @@ var Mapstraction = mxn.Mapstraction = function(element, api, debug) {
 		'click',
 		
 		/**
+		 * Map is clicked by right mouse button {location: mxn.LatLonPoint}
+		 * @name mxn.Mapstraction#rightclick
+		 * @event
+		 */
+		'rightclick',
+
+		/**
 		 * Map is panned
 		 * @name mxn.Mapstraction#endPan
 		 * @event
@@ -500,6 +507,9 @@ Mapstraction.prototype.clickHandler = function(lat, lon, me) {
 	this.callEventListeners('click', {
 		location: new LatLonPoint(lat, lon)
 	});
+	this.callEventListeners('rightclick', {
+		location: new LatLonPoint(lat, lon)
+	});
 };
 
 // Move and zoom handler attached to native API
@@ -542,7 +552,7 @@ Mapstraction.prototype.callEventListeners = function(sEventType, oEventArgs) {
 		if(evLi.event_type == sEventType) {
 			// only two cases for this, click and move
 			if(evLi.back_compat_mode) {
-				if(evLi.event_type == 'click') {
+				if(evLi.event_type == 'click' || evLi.event_type == 'rightclick') {
 					evLi.callback_function(oEventArgs.location);
 				}
 				else {
@@ -1517,7 +1527,8 @@ var Marker = mxn.Marker = function(point) {
 	mxn.addEvents(this, [ 
 		'openInfoBubble',	// Info bubble opened
 		'closeInfoBubble', 	// Info bubble closed
-		'click'				// Marker clicked
+		'click',			// Marker clicked
+		'rightclick'		// Right button clicked on Marker
 	]);
 };
 

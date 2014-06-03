@@ -240,6 +240,10 @@ Mapstraction: {
 		
 	},
 
+	addOverlayElement: function(overlay) {
+		// TODO: Add provider code
+	},
+
 	addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom, map_type, subdomains) {
 		var map = this.maps[this.api];
 		var me = this;

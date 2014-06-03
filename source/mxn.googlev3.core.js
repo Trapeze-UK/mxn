@@ -75,11 +75,17 @@ Mapstraction: {
 		});
 		
 		// deal with click
-		google.maps.event.addListener(map, 'click', function(location){
-			me.click.fire({'location': 
-				new mxn.LatLonPoint(location.latLng.lat(),location.latLng.lng())
-			});
-		});
+		function clickListenerFor(type){
+			return function(event) {
+				me[type].fire({
+					'location': new mxn.LatLonPoint(event.latLng.lat(),event.latLng.lng()),
+					'position': {x: event.pixel.x, y: event.pixel.y}
+				});
+			};
+		}
+
+		google.maps.event.addListener(map, 'click', clickListenerFor('click'));
+		google.maps.event.addListener(map, 'rightclick', clickListenerFor('rightclick'));
 
 		// deal with zoom change
 		google.maps.event.addListener(map, 'zoom_changed', function(){
@@ -411,6 +417,13 @@ Mapstraction: {
 		layer.setMap(map);
 	},
 
+	addOverlayElement: function(overlay) {
+		var map = this.maps[this.api];
+		var propOverlayElement = overlay.toProprietary(this.api);
+		propOverlayElement.setMap(map);
+		return propOverlayElement;
+	},
+
 addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom, map_type, subdomains) {
 		var map = this.maps[this.api];
 		var z_index = this.tileLayers.length || 0;
@@ -632,6 +645,10 @@ Marker: {
 			marker.mapstraction_marker.click.fire();
 		});
 		
+		google.maps.event.addListener(marker, 'rightclick', function() {
+			marker.mapstraction_marker.rightclick.fire();
+		});
+
 		return marker;
 	},
 
@@ -722,6 +739,68 @@ Polyline: {
 
 	hide: function() {
 		this.proprietary_polyline.setVisible(false);
+	}
+},
+
+OverlayElement: {
+
+	toProprietary: function() {
+		function OverlayView(api, map, el){
+			this.api = api;
+			this.map = map;
+			this.element = el;
+			this.position = null;
+			this.visible = true;
+		}
+
+		OverlayView.prototype = new google.maps.OverlayView();
+
+		OverlayView.prototype.onAdd = function () {
+			this.getPanes().floatPane.appendChild(this.element);
+		};
+
+		OverlayView.prototype.draw = function () {
+			if (this.visible && this.position) {
+				var divPixel = this.getProjection().fromLatLngToDivPixel(this.position);
+				this.element.style.left = divPixel.x + "px";
+				this.element.style.top = divPixel.y + "px";
+			}
+		};
+
+		OverlayView.prototype.show = function (latLng) {
+			this.visible = true;
+			this.element.style.display = 'block';
+			this.position = latLng.toProprietary(this.api);
+			this.draw();
+		};
+
+		OverlayView.prototype.hide = function () {
+			if (this.visible) {
+				this.visible = false;
+				this.element.style.display = 'none';
+			}
+		};
+
+		OverlayView.prototype.destroy = function () {
+			this.map = null;
+			this.element = null;
+		};
+
+		this.prorietary_overlay = new OverlayView(this.api, this.map, this.element, this.position);
+
+		return this.prorietary_overlay;
+	},
+
+	show: function(latLng) {
+		this.prorietary_overlay.show(latLng);
+	},
+
+	hide: function() {
+		this.prorietary_overlay.hide();
+	},
+
+	destroy: function(){
+		this.prorietary_overlay.destroy();
 	}
 }
 

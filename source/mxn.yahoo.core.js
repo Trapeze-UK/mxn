@@ -252,6 +252,10 @@ Mapstraction: {
 		map.addOverlay(new YGeoRSS(url));
 	},
 	
+	addOverlayElement: function(overlay) {
+		throw 'Not implemented';
+	},
+	
 	addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom, map_type, subdomains) {
 		throw 'Not implemented';
 	},

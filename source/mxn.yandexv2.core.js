@@ -351,6 +351,10 @@ Mapstraction: {
 		map.addOverlay(kml);
 	},
 
+	addOverlayElement: function(overlay) {
+		throw new Error('Mapstraction.addOverlayElement is not currently supported by provider ' + this.api);
+	},
+
 	addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom, map_type, subdomains) {
 		var map = this.maps[this.api];	
 		var newLayer = new ymaps.Layer();

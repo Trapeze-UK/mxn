@@ -646,11 +646,11 @@ Mapstraction.prototype.addPolylineWithData = function(polyline, data) {
 };
 
 /**
-	 * Adds an overlay DOM element to the map
-	 * @name mxn.Mapstraction#addOverlayElement
-	 * @function
-	 * @param {mxn.OverlayElement} element
-	 */
+ * Adds an overlay DOM element to the map
+ * @name mxn.Mapstraction#addOverlayElement
+ * @function
+ * @param {mxn.OverlayElement} element
+ */
 Mapstraction.prototype.addOverlayElement = function(overlay) {
 	overlay.api = this.api;
 	overlay.map = this.maps[this.api];

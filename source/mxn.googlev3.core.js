@@ -118,7 +118,7 @@ Mapstraction: {
 		});			
 		
 		if (!geoXML3) {
-			throw new Error('No KML parser found. Did you attached geoxml3?');
+			throw new Error('No KML parser found. Have you attached geoxml3?');
 		}
 
 		var kmlParserConfiguration = {

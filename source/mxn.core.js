@@ -2115,7 +2115,7 @@ var OverlayElement = mxn.OverlayElement = function(element) {
 mxn.addProxyMethods(OverlayElement, [
 	/**
 	 * Shows overlay element on map
-	 * @name mxn.Mapstraction#show
+	 * @name mxn.OverlayElement#show
 	 * @function
 	 * @param {mxn.LatLonPoint} point Place at which element's top left corner should be drawn
 	 */
@@ -2123,14 +2123,14 @@ mxn.addProxyMethods(OverlayElement, [
 
 	/**
 	 * Hides overlay element
-	 * @name mxn.Mapstraction#hide
+	 * @name mxn.OverlayElement#hide
 	 * @function
 	 */
 	'hide',
 
 	/**
 	 * Destroys overlay element. All tasks which are required to remove element will be done here
-	 * @name mxn.Mapstraction#destroy
+	 * @name mxn.OverlayElement#destroy
 	 * @function
 	 */
 	'destroy',

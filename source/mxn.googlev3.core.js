@@ -153,6 +153,12 @@ Mapstraction: {
 		else{
 			myOptions.disableDoubleClickZoom = false;
 		}
+		if('kmlParserZoom' in this.options){
+			this.parser.options.zoom = this.options.kmlParserZoom;
+		}
+		if('kmlParserSuppressInfoWindows' in this.options){
+			this.parser.options.suppressInfoWindows = this.options.kmlParserSuppressInfoWindows;
+		}
 		map.setOptions(myOptions);
 	},
 

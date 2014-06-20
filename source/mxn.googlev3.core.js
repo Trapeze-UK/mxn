@@ -126,6 +126,9 @@ Mapstraction: {
 		else{
 			myOptions.disableDoubleClickZoom = false;
 		}
+		if('draggableCursor' in this.options){
+			myOptions.draggableCursor = this.options.draggableCursor;
+		}
 		map.setOptions(myOptions);
 	},
 

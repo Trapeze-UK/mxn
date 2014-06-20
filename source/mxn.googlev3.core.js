@@ -144,6 +144,9 @@ Mapstraction: {
 		else{
 			myOptions.disableDoubleClickZoom = false;
 		}
+		if('draggableCursor' in this.options){
+			myOptions.draggableCursor = this.options.draggableCursor;
+		}
 		map.setOptions(myOptions);
 	},
 
@@ -223,7 +226,7 @@ Mapstraction: {
 			this.addControlsArgs.map_type = false;
 		}
 		
-		if ('overview' in args) {
+		if ('overview' in args && args.overview) {
 			myOptions = {
 				overviewMapControl: true,
 				overviewMapControlOptions: {opened: true}

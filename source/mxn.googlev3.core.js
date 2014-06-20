@@ -109,7 +109,7 @@ Mapstraction: {
 		});			
 		
 		if (!geoXML3) {
-			throw new Error('No KML parser found. Did you attached geoxml3?');
+			throw new Error('No KML parser found. Have you attached geoxml3?');
 		}
 
 		var kmlParserConfiguration = {
@@ -146,6 +146,12 @@ Mapstraction: {
 		}
 		if('draggableCursor' in this.options){
 			myOptions.draggableCursor = this.options.draggableCursor;
+		}
+		if('kmlParserZoom' in this.options){
+			this.parser.options.zoom = this.options.kmlParserZoom;
+		}
+		if('kmlParserSuppressInfoWindows' in this.options){
+			this.parser.options.suppressInfoWindows = this.options.kmlParserSuppressInfoWindows;
 		}
 		map.setOptions(myOptions);
 	},

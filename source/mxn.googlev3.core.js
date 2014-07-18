@@ -530,8 +530,11 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 		parser.docs.splice(0, parser.docs.length);
 	},
 
-	renderKml: function(kml) {
-		this.parser.parseKmlString(kml);
+	renderKml: function(kml, kmlDocument) {
+		var parser = this.parser;
+		var docs = parser.docs;
+		parser.parseKmlString(kml);
+		return kmlDocument.toProprietary(docs[docs.length - 1]);
 	},
 
 	closeStreetView: function() {
@@ -811,6 +814,30 @@ OverlayElement: {
 	destroy: function(){
 		this.prorietary_overlay.destroy();
 	}
-}
+},
+
+KmlDocument: {
+
+	toProprietary: function(document) {
+		function GeoXML3KmlDocument(document){
+			this.document = document;
+		}
+
+		GeoXML3KmlDocument.prototype.setLineColor = function (color) {
+			var placemarks = this.document.placemarks;
+			for (var i = 0; i < placemarks.length; i++) {
+				var placemark = placemarks[i];
+				placemark.polyline.strokeColor = color;
+			}
+		};
+
+		this.prorietary_kml= new GeoXML3KmlDocument(document);
+
+		return this.prorietary_kml;
+	},
+
+	setLineColor: function(color) {
+		this.prorietary_kml.setLineColor(color);
+	}}
 
 });

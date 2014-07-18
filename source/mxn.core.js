@@ -387,6 +387,7 @@ mxn.addProxyMethods(Mapstraction, [
 	 * @name mxn.Mapstraction#renderKml
 	 * @function
 	 * @param {string} kml KML to render (may be null)
+	 * @returns {mxn.KmlDocument} object representing kml document
 	 */
 	'renderKml',
 
@@ -677,6 +678,20 @@ Mapstraction.prototype.addOverlayElement = function(overlay) {
 	overlay.api = this.api;
 	overlay.map = this.maps[this.api];
 	this.invoker.go('addOverlayElement', arguments);
+};
+
+/**
+ * Render KML stored in string
+ * @name mxn.Mapstraction#renderKml
+ * @function
+ * @param {string} kml KML to render (may be null)
+ * @returns {mxn.KmlDocument} object representing kml document
+ */
+Mapstraction.prototype.renderKml = function(kml) {
+	var kmlDocument = new mxn.KmlDocument();
+	kmlDocument.api = this.api;
+	this.invoker.go('renderKml', [kml, kmlDocument]);
+	return kmlDocument;
 };
 
 /**
@@ -2163,6 +2178,41 @@ mxn.addProxyMethods(OverlayElement, [
 	 * @function
 	 * @param {string} api The API ID of the proprietary overlay element.
 	 * @returns A proprietary overlay elemet.
+	 */
+	'toProprietary'
+]);
+
+
+////////////////////
+// KmlDocument //
+////////////////////
+
+/**
+ * Creates a Mapstraction KmlDocument. It represents the kml rendered on the map.
+ * @name mxn.KmlDocument
+ * @constructor
+ * @exports KmlDocument as mxn.KmlDocument
+ */
+var KmlDocument = mxn.KmlDocument = function() {
+	this.api = null;
+	this.invoker = new mxn.Invoker(this, 'KmlDocument', function(){ return this.api; });
+};
+
+mxn.addProxyMethods(KmlDocument, [
+	/**
+	 * Sets line color.
+	 * @name mxn.KmlDocument#setLineColor
+	 * @function
+	 * @param {string} color Color of the line.
+	 */
+	'setLineColor',
+
+	/**
+	 * Converts the current KmlDocument to a proprietary one for the API specified by <code>api</code>.
+	 * @name mxn.KmlDocument#toProprietary
+	 * @function
+	 * @param {Object} document Proprietary representation of kml document.
+	 * @returns A proprietary kml document.
 	 */
 	'toProprietary'
 ]);

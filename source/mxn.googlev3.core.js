@@ -529,6 +529,19 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 		parser.docs.splice(0, parser.docs.length);
 	},
 
+	centerAndZoomOnKmls: function () {
+		var docs = this.parser.docs;
+		if (docs.length > 0) {
+			var bounds = docs[0].bounds;
+			for (var i = 1; i < docs.length; i++) {
+				var document = docs[i];
+				bounds = bounds.union(document.bounds);
+			}
+			var map = this.maps[this.api];
+			map.fitBounds(bounds);
+		}
+	},
+
 	renderKml: function(kml, kmlDocument) {
 		var parser = this.parser;
 		var docs = parser.docs;

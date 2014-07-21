@@ -381,7 +381,14 @@ mxn.addProxyMethods(Mapstraction, [
 	 * @name mxn.Mapstraction#removeAllKmls
 	 * @function
 	 */
-	'removeAllKmls'
+	'removeAllKmls',
+
+	/**
+	 * Center and zoom on all rendered KMLs
+	 * @name mxn.Mapstraction#centerAndZoomOnKmls
+	 * @function
+	 */
+	'centerAndZoomOnKmls'
 ]);
 
 /**

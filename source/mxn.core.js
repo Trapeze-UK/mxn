@@ -399,6 +399,13 @@ mxn.addProxyMethods(Mapstraction, [
 	'removeAllKmls',
 
 	/**
+	 * Center and zoom on all rendered KMLs
+	 * @name mxn.Mapstraction#centerAndZoomOnKmls
+	 * @function
+	 */
+	'centerAndZoomOnKmls',
+
+	/**
 	 * Close Street View
 	 * @name mxn.Mapstraction#closeStreetView
 	 * @function

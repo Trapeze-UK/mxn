@@ -521,12 +521,11 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 
 	removeAllKmls: function() {
 		var parser = this.parser;
-
-		parser.docs.forEach(function (doc) {
-			parser.hideDocument(doc);
-		});
-
-		parser.docs.splice(0, parser.docs.length);
+		var docs = parser.docs;
+		for (var i = 0; i < docs.length; i++) {
+			parser.hideDocument(docs[i]);
+		}
+		docs.splice(0, docs.length);
 	},
 
 	centerAndZoomOnKmls: function () {
@@ -768,17 +767,17 @@ KmlDocument: {
 			var placemarks = this.document.placemarks;
 			for (var i = 0; i < placemarks.length; i++) {
 				var placemark = placemarks[i];
-				placemark.polyline.strokeColor = color;
+				placemark.polyline.setOptions({ strokeColor: color })
 			}
 		};
 
-		this.prorietary_kml= new GeoXML3KmlDocument(document);
+		this.proprietary_kml= new GeoXML3KmlDocument(document);
 
-		return this.prorietary_kml;
+		return this.proprietary_kml;
 	},
 
 	setLineColor: function(color) {
-		this.prorietary_kml.setLineColor(color);
+		this.proprietary_kml.setLineColor(color);
 	}
 }
 

@@ -839,7 +839,7 @@ KmlDocument: {
 			var placemarks = this.document.placemarks;
 			for (var i = 0; i < placemarks.length; i++) {
 				var placemark = placemarks[i];
-				placemark.polyline.setOptions({ strokeColor: color })
+				placemark.polyline.setOptions({ strokeColor: color });
 			}
 		};
 

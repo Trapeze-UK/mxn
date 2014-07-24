@@ -838,8 +838,14 @@ KmlDocument: {
 		GeoXML3KmlDocument.prototype.setLineColor = function (color) {
 			var placemarks = this.document.placemarks;
 			for (var i = 0; i < placemarks.length; i++) {
-				var placemark = placemarks[i];
-				placemark.polyline.setOptions({ strokeColor: color });
+				placemarks[i].polyline.setOptions({ strokeColor: color });
+			}
+		};
+
+		GeoXML3KmlDocument.prototype.setZIndex = function (zIndex) {
+			var placemarks = this.document.placemarks;
+			for (var i = 0; i < placemarks.length; i++) {
+				placemarks[i].polyline.setOptions({ zIndex: zIndex });
 			}
 		};
 
@@ -850,6 +856,11 @@ KmlDocument: {
 
 	setLineColor: function(color) {
 		this.proprietary_kml.setLineColor(color);
-	}}
+	},
+
+	setZIndex: function(zIndex) {
+		this.proprietary_kml.setZIndex(zIndex);
+	}
+}
 
 });

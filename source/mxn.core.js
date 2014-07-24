@@ -2215,6 +2215,14 @@ mxn.addProxyMethods(KmlDocument, [
 	'setLineColor',
 
 	/**
+	 * Sets zIndex.
+	 * @name mxn.KmlDocument#setZIndex
+	 * @function
+	 * @param {number} zIndex zIndex of the line.
+	 */
+	'setZIndex',
+
+	/**
 	 * Converts the current KmlDocument to a proprietary one for the API specified by <code>api</code>.
 	 * @name mxn.KmlDocument#toProprietary
 	 * @function

@@ -309,6 +309,13 @@ mxn.addProxyMethods(Mapstraction, [
 	'resizeTo', 
 	
 	/**
+	 * Refresh the current map to adjust to the new size of container
+	 * @name mxn.Mapstraction#refresh
+	 * @function
+	 */
+	'refresh',
+	
+	/**
 	 * Sets the map to the appropriate location and zoom for a given BoundingBox
 	 * @name mxn.Mapstraction#setBounds
 	 * @function

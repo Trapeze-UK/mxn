@@ -139,6 +139,11 @@ Mapstraction: {
 		google.maps.event.trigger(map,'resize');
   	},
 
+	refresh: function() {
+		var map = this.maps[this.api];
+		google.maps.event.trigger(map, 'resize');
+	},
+
 	addControls: function( args ) {
 		/* args = { 
 		 *     pan:      true,

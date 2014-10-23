@@ -2133,10 +2133,19 @@ mxn.addProxyMethods(KmlDocument, [
 	'setZIndex',
 
 	/**
+	 * Centers the map on a particular line.
+	 * @name mxn.KmlDocument#centerAndZoomOnLine
+	 * @function
+	 * @param {number} index Index of the line.
+	 */
+	'centerAndZoomOnLine',
+
+	/**
 	 * Converts the current KmlDocument to a proprietary one for the API specified by <code>api</code>.
 	 * @name mxn.KmlDocument#toProprietary
 	 * @function
 	 * @param {Object} document Proprietary representation of kml document.
+	 * @param {Object} map Map object.
 	 * @returns A proprietary kml document.
 	 */
 	'toProprietary'

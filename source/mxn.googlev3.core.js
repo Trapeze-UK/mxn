@@ -545,7 +545,7 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 		var parser = this.parser;
 		var docs = parser.docs;
 		parser.parseKmlString(kml);
-		return kmlDocument.toProprietary(docs[docs.length - 1]);
+		return kmlDocument.toProprietary(docs[docs.length - 1], this.maps[this.api]);
 	}
 },
 
@@ -758,26 +758,32 @@ Polyline: {
 
 KmlDocument: {
 
-	toProprietary: function(document) {
-		function GeoXML3KmlDocument(document){
+	toProprietary: function(document, map) {
+		function GeoXML3KmlDocument(document, map){
 			this.document = document;
+			this.map = map;
 		}
 
 		GeoXML3KmlDocument.prototype.setLineColor = function (color) {
-			var placemarks = this.document.placemarks;
-			for (var i = 0; i < placemarks.length; i++) {
-				placemarks[i].polyline.setOptions({ strokeColor: color });
+			var gpolylines = this.document.gpolylines;
+			for (var i = 0; i < gpolylines.length; i++) {
+				gpolylines[i].setOptions({ strokeColor: color });
 			}
 		};
 
 		GeoXML3KmlDocument.prototype.setZIndex = function (zIndex) {
-			var placemarks = this.document.placemarks;
-			for (var i = 0; i < placemarks.length; i++) {
-				placemarks[i].polyline.setOptions({ zIndex: zIndex });
+			var gpolylines = this.document.gpolylines;
+			for (var i = 0; i < gpolylines.length; i++) {
+				gpolylines[i].setOptions({ zIndex: zIndex });
 			}
 		};
 
-		this.proprietary_kml= new GeoXML3KmlDocument(document);
+		GeoXML3KmlDocument.prototype.centerAndZoomOnLine = function (index) {
+			var gpolyline = this.document.gpolylines[index];
+			this.map.fitBounds(gpolyline.bounds);
+		};
+
+		this.proprietary_kml = new GeoXML3KmlDocument(document, map);
 
 		return this.proprietary_kml;
 	},
@@ -788,6 +794,10 @@ KmlDocument: {
 
 	setZIndex: function(zIndex) {
 		this.proprietary_kml.setZIndex(zIndex);
+	},
+
+	centerAndZoomOnLine: function(index) {
+		this.proprietary_kml.centerAndZoomOnLine(index);
 	}
 }
 

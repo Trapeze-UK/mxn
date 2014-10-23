@@ -132,6 +132,13 @@ var Mapstraction = mxn.Mapstraction = function(element, api, debug) {
 		'load',
 		
 		/**
+		 * Map is idle
+		 * @name mxn.Mapstraction#idle
+		 * @event
+		 */
+		'idle',
+		
+		/**
 		 * Map is clicked {location: mxn.LatLonPoint}
 		 * @name mxn.Mapstraction#click
 		 * @event

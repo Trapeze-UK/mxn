@@ -72,6 +72,7 @@ Mapstraction: {
 					handler();
 				}
 			}
+			me.idle.fire();
 		});
 		
 		// deal with click

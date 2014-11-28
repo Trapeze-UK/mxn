@@ -2125,6 +2125,14 @@ mxn.addProxyMethods(KmlDocument, [
 	'setLineColor',
 
 	/**
+	 * Sets line opacity.
+	 * @name mxn.KmlDocument#setLineColor
+	 * @function
+	 * @param {number} opacity Opacity of the line (0 is transparent, 1 is opaque, default = 0.5).
+	 */
+	'setLineOpacity',
+
+	/**
 	 * Sets zIndex.
 	 * @name mxn.KmlDocument#setZIndex
 	 * @function

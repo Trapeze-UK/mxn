@@ -771,6 +771,13 @@ KmlDocument: {
 			}
 		};
 
+		GeoXML3KmlDocument.prototype.setLineOpacity = function (opacity) {
+			var gpolylines = this.document.gpolylines;
+			for (var i = 0; i < gpolylines.length; i++) {
+				gpolylines[i].setOptions({ strokeOpacity: opacity });
+			}
+		};
+
 		GeoXML3KmlDocument.prototype.setZIndex = function (zIndex) {
 			var gpolylines = this.document.gpolylines;
 			for (var i = 0; i < gpolylines.length; i++) {
@@ -790,6 +797,10 @@ KmlDocument: {
 
 	setLineColor: function(color) {
 		this.proprietary_kml.setLineColor(color);
+	},
+
+	setLineOpacity: function(opacity) {
+		this.proprietary_kml.setLineOpacity(opacity);
 	},
 
 	setZIndex: function(zIndex) {

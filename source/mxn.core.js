@@ -1764,6 +1764,9 @@ Marker.prototype.addData = function(options){
 				case 'groupName':
 					this.setGroupName(options.groupName);
 					break;
+				case 'zIndex':
+					this.zIndex = options.zIndex;
+					break;
 				default:
 					// don't have a specific action for this bit of
 					// data so set a named attribute

@@ -146,7 +146,7 @@ Mapstraction: {
 			myOptions.disableDoubleClickZoom = false;
 		}
 		if (this.options.styles) {
-			myOptions.styles = styles;
+			myOptions.styles = this.options.styles;
 		}
 		if('draggableCursor' in this.options){
 			myOptions.draggableCursor = this.options.draggableCursor;

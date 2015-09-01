@@ -74,19 +74,33 @@ Mapstraction: {
 			}
 			me.idle.fire();
 		});
-		
+
+		var longPress = false;
+		var start, end;
+
 		// deal with click
 		function clickListenerFor(type){
 			return function(event) {
 				me[type].fire({
 					'location': new mxn.LatLonPoint(event.latLng.lat(),event.latLng.lng()),
-					'position': {x: event.pixel.x, y: event.pixel.y}
+					'position': {x: event.pixel.x, y: event.pixel.y},
+					'longPress' : longPress
 				});
 			};
 		}
 
 		google.maps.event.addListener(map, 'click', clickListenerFor('click'));
 		google.maps.event.addListener(map, 'rightclick', clickListenerFor('rightclick'));
+
+		// deal with long press
+		google.maps.event.addListener(map, 'mousedown', function(event){
+			start = new Date().getTime();
+		});
+
+		google.maps.event.addListener(map, 'mouseup', function(event){
+			end = new Date().getTime();
+			longPress = (end - start < 500) ? false : true;
+		});
 
 		// deal with zoom change
 		google.maps.event.addListener(map, 'zoom_changed', function(){

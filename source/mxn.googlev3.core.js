@@ -76,6 +76,7 @@ Mapstraction: {
 		});
 
 		var longPress = false;
+		var start, end;
 
 		// deal with click
 		function clickListenerFor(type){

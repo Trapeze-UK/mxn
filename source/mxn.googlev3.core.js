@@ -1,10 +1,10 @@
-mxn.register('googlev3', {	
+mxn.register('googlev3', {
 
 Mapstraction: {
-	
-	init: function(element, api){		
+
+	init: function(element, api){
 		var me = this;
-		
+
 		if (typeof google.maps.Map === 'undefined') {
 			throw new Error(api + ' map script not imported');
 		}
@@ -58,11 +58,11 @@ Mapstraction: {
 				myOptions.overviewMapControlOptions = {opened: true};
 			}
 		}
-	
+
 		var map = new google.maps.Map(element, myOptions);
-		
+
 		var fireOnNextIdle = [];
-		
+
 		google.maps.event.addListener(map, 'idle', function() {
 			var fireListCount = fireOnNextIdle.length;
 			if (fireListCount > 0) {
@@ -104,25 +104,25 @@ Mapstraction: {
 
 		// deal with zoom change
 		google.maps.event.addListener(map, 'zoom_changed', function(){
-			// zoom_changed fires before the zooming has finished so we 
+			// zoom_changed fires before the zooming has finished so we
 			// wait for the next idle event before firing our changezoom
 			// so that method calls report the correct values
 			fireOnNextIdle.push(function() {
 				me.changeZoom.fire();
 			});
 		});
-		
+
 		google.maps.event.addListener(map, 'dragend', function(){
 			me.moveendHandler(me);
 			me.endPan.fire();
 		});
-		
+
 		// deal with initial tile loading
 		var loadListener = google.maps.event.addListener(map, 'tilesloaded', function(){
 			me.load.fire();
 			google.maps.event.removeListener( loadListener );
-		});			
-		
+		});
+
 		if (!geoXML3) {
 			throw new Error('No KML parser found. Have you attached geoxml3?');
 		}
@@ -137,19 +137,19 @@ Mapstraction: {
 		this.maps[api] = map;
 		this.loaded[api] = true;
 	},
-	
+
 	applyOptions: function(){
 		var map = this.maps[this.api];
 		var myOptions = [];
 		if (this.options.enableDragging) {
 			myOptions.draggable = true;
-		} 
+		}
 		else{
 			myOptions.draggable = false;
 		}
 		if (this.options.enableScrollWheelZoom){
 			myOptions.scrollwheel = true;
-		} 
+		}
 		else{
 			myOptions.scrollwheel = false;
 		}
@@ -174,7 +174,7 @@ Mapstraction: {
 		map.setOptions(myOptions);
 	},
 
-	resizeTo: function(width, height){	
+	resizeTo: function(width, height){
 		this.currentElement.style.width = width;
 		this.currentElement.style.height = height;
 		var map = this.maps[this.api];
@@ -187,7 +187,7 @@ Mapstraction: {
 	},
 
 	addControls: function( args ) {
-		/* args = { 
+		/* args = {
 		 *     pan:      true,
 		 *     zoom:     'large' || 'small',
 		 *     overview: true,
@@ -205,25 +205,25 @@ Mapstraction: {
 			myOptions = { panControl: true };
 			map.setOptions(myOptions);
 			this.addControlsArgs.pan = true;
-			
+
 		}
-		
+
 		else if (!('pan' in args) || ('pan' in args && !args.pan)) {
 			myOptions = { panControl: false };
 			map.setOptions(myOptions);
 			this.addControlsArgs.pan = false;
 		}
-		
+
 		if ('zoom' in args) {
 			if (args.zoom == 'small') {
 				this.addSmallControls();
 			}
-			
+
 			else if (args.zoom == 'large') {
 				this.addLargeControls();
 			}
 		}
-		
+
 		else {
 			myOptions = { zoomControl: false };
 			map.setOptions(myOptions);
@@ -233,12 +233,12 @@ Mapstraction: {
 		if ('scale' in args && args.scale){
 			myOptions = {
 				scaleControl:true,
-				scaleControlOptions: {style:google.maps.ScaleControlStyle.DEFAULT}				
+				scaleControlOptions: {style:google.maps.ScaleControlStyle.DEFAULT}
 			};
 			map.setOptions(myOptions);
 			this.addControlsArgs.scale = true;
 		}
-		
+
 		else {
 			myOptions = { scaleControl: false };
 			map.setOptions(myOptions);
@@ -254,7 +254,7 @@ Mapstraction: {
 			map.setOptions(myOptions);
 			this.addControlsArgs.map_type = false;
 		}
-		
+
 		if ('overview' in args && args.overview) {
 			myOptions = {
 				overviewMapControl: true,
@@ -263,7 +263,7 @@ Mapstraction: {
 			map.setOptions(myOptions);
 			this.addControlsArgs.overview = true;
 		}
-		
+
 		else {
 			myOptions = { overviewMapControl: false };
 			map.setOptions(myOptions);
@@ -303,21 +303,21 @@ Mapstraction: {
 		this.addControlsArgs.map_type = true;
 	},
 
-	setCenterAndZoom: function(point, zoom) { 
+	setCenterAndZoom: function(point, zoom) {
 		var map = this.maps[this.api];
 		var pt = point.toProprietary(this.api);
 		map.setCenter(pt);
 		map.setZoom(zoom);
 	},
-	
+
 	addMarker: function(marker, old) {
-	   return marker.toProprietary(this.api);		
+	   return marker.toProprietary(this.api);
 	},
 
 	removeMarker: function(marker) {
 		marker.proprietary_marker.setMap(null);
 	},
-	
+
 	declutterMarkers: function(opts) {
 		throw new Error('Mapstraction.declutterMarkers is not currently supported by provider ' + this.api);
 	},
@@ -333,7 +333,7 @@ Mapstraction: {
 		var map = this.maps[this.api];
 		polyline.proprietary_polyline.setMap(null);
 	},
-	   
+
 	getCenter: function() {
 		var map = this.maps[this.api];
 		var pt = map.getCenter();
@@ -343,10 +343,10 @@ Mapstraction: {
 	setCenter: function(point, options) {
 		var map = this.maps[this.api];
 		var pt = point.toProprietary(this.api);
-		if (options && options.pan) { 
+		if (options && options.pan) {
 			map.panTo(pt);
 		}
-		else { 
+		else {
 			map.setCenter(pt);
 		}
 	},
@@ -355,7 +355,7 @@ Mapstraction: {
 		var map = this.maps[this.api];
 		map.setZoom(zoom);
 	},
-	
+
 	getZoom: function() {
 		var map = this.maps[this.api];
 		return map.getZoom();
@@ -387,7 +387,7 @@ Mapstraction: {
 				break;
 			default:
 				map.setMapTypeId(google.maps.MapTypeId.ROADMAP);
-		}	 
+		}
 	},
 
 	getMapType: function() {
@@ -428,11 +428,11 @@ Mapstraction: {
 
 	addImageOverlay: function(id, src, opacity, west, south, east, north, oContext) {
 		var map = this.maps[this.api];
-		
+
 		var imageBounds = new google.maps.LatLngBounds(
 			new google.maps.LatLng(south,west),
 			new google.maps.LatLng(north,east));
-		
+
 		var groundOverlay = new google.maps.GroundOverlay(src, imageBounds);
 		groundOverlay.setMap(map);
 	},
@@ -440,7 +440,7 @@ Mapstraction: {
 	setImagePosition: function(id, oContext) {
 		throw new Error('Mapstraction.declutterMarkers is not currently supported by provider ' + this.api);
 	},
-	
+
 	addOverlay: function(url, autoCenterAndZoom) {
 		var map = this.maps[this.api];
 
@@ -502,11 +502,11 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 			}
 			var optionsUpdate = {mapTypeControlOptions: {mapTypeIds: mapTypeIds}};
 			map.setOptions(optionsUpdate);
-		} 
+		}
 		else {
 			map.overlayMapTypes.insertAt(z_index, tileLayerOverlay);
 		}
-		
+
 		return tileLayerOverlay;
 	},
 
@@ -530,7 +530,7 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 	getPixelRatio: function() {
 		throw new Error('Mapstraction.getPixelRatio is not currently supported by provider ' + this.api);
 	},
-	
+
 	mousePosition: function(element) {
 		var map = this.maps[this.api];
 		var locDisp = document.getElementById(element);
@@ -579,7 +579,7 @@ addTileLayer: function(tile_url, opacity, label, attribution, min_zoom, max_zoom
 },
 
 LatLonPoint: {
-	
+
 	toProprietary: function() {
 		return new google.maps.LatLng(this.lat, this.lon);
 	},
@@ -588,16 +588,16 @@ LatLonPoint: {
 		this.lat = googlePoint.lat();
 		this.lon = googlePoint.lng();
 	}
-	
+
 },
 
 Marker: {
-	
+
 	toProprietary: function() {
 		var options = {};
 
 		// do we have an Anchor?
-		var ax = 0;  // anchor x 
+		var ax = 0;  // anchor x
 		var ay = 0;  // anchor y
 
 		if (this.iconAnchor) {
@@ -623,7 +623,7 @@ Marker: {
 						this.iconShadowUrl,
 						new google.maps.Size(x,y),
 						new google.maps.Point(0,0),
-						gAnchorPoint 
+						gAnchorPoint
 					);
 				}
 				else {
@@ -678,25 +678,43 @@ Marker: {
 				gAnchorPoint
 			);
 			google.maps.event.addListener(
-				marker, 
-				"mouseover", 
-				function(){ 
-					marker.setIcon(hIcon); 
+				marker,
+				"mouseover",
+				function(){
+					marker.setIcon(hIcon);
 				}
 			);
 			google.maps.event.addListener(
-				marker, 
-				"mouseout", 
+				marker,
+				"mouseout",
 				function(){ marker.setIcon(Icon); }
 			);
 		}
 
-		google.maps.event.addListener(marker, 'click', function() {
-			marker.mapstraction_marker.click.fire();
+		var longPress = false;
+		var start, end;
+
+		// deal with click
+		function clickListenerFor(type){
+			return function(event) {
+				this.mapstraction_marker[type].fire({
+					'location': new mxn.LatLonPoint(event.latLng.lat(),event.latLng.lng()),
+					'longPress' : longPress
+				});
+			};
+		}
+
+		google.maps.event.addListener(marker, 'click', clickListenerFor('click'));
+		google.maps.event.addListener(marker, 'rightclick', clickListenerFor('rightclick'));
+
+		// deal with long press
+		google.maps.event.addListener(marker, 'mousedown', function(event){
+			start = new Date().getTime();
 		});
-		
-		google.maps.event.addListener(marker, 'rightclick', function() {
-			marker.mapstraction_marker.rightclick.fire();
+
+		google.maps.event.addListener(marker, 'mouseup', function(event){
+			end = new Date().getTime();
+			longPress = (end - start < 500) ? false : true;
 		});
 
 		return marker;
@@ -741,7 +759,7 @@ Marker: {
 		point.fromProprietary('googlev3', this.proprietary_marker.getPosition());
 		this.location = point;
 	}
-	
+
 },
 
 Polyline: {
@@ -752,14 +770,14 @@ Polyline: {
 		for (var i = 0, length = this.points.length; i < length; i++) {
 			coords.push(this.points[i].toProprietary('googlev3'));
 		}
-		
+
 		var polyOptions = {
 			path: coords,
 			strokeColor: this.color,
-			strokeOpacity: this.opacity, 
+			strokeOpacity: this.opacity,
 			strokeWeight: this.width
 		};
-		
+
 		if (this.closed) {
 			if (!(this.points[0].equals(this.points[this.points.length - 1]))) {
 				coords.push(coords[0]);
@@ -773,16 +791,16 @@ Polyline: {
 		if (this.closed) {
 			polyOptions.fillColor = this.fillColor;
 			polyOptions.fillOpacity = polyOptions.strokeOpacity;
-			
+
 			this.proprietary_polyline = new google.maps.Polygon(polyOptions);
 		}
 		else {
 			this.proprietary_polyline = new google.maps.Polyline(polyOptions);
 		}
-		
+
 		return this.proprietary_polyline;
 	},
-	
+
 	show: function() {
 		this.proprietary_polyline.setVisible(true);
 	},
